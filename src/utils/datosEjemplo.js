@@ -16,4 +16,7 @@ export const resultadoEjemplo = {
     ganancia: 113,
     pesoTotal: 28,
     ruta: ['P4', 'P2', 'P1'],
+    procesado: 12,
+    tiemposMs: 0.4,
+    operaciones: 250,
 }

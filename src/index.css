@@ -3,30 +3,251 @@
 ========================================== */
 :root {
     --blanco: #ffffff;
-    --negro: #000000;
+    --negro: #202820;
     --verde: #47803f;
+    --verde-oscuro: #35652f;
+    --verde-claro: #eaf2e8;
+    --fondo: #f5f7f4;
+    --fondo-barra: #eae3d5;
+    --borde: #d9dfd8;
+    --texto-secundario: #626b61;
 }
 
 /*==========================================
     ESTILOS GENERALES
 ========================================== */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background: var(--blanco);
+    margin: 0;
+    background: var(--fondo);
     color: var(--negro);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /*==========================================
     TRUCKCAPACITY
 ========================================== */
-.truck_barra {
-    width: 400px;
-    height: 20px;
-    border: 2px solid var(--negro);
-    background: #EAE3D5;
+.truck_capacity {
+    width: 100%;
+    max-width: 400px;
 }
 
-.truck_relleno {
+.truck_capacity label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.truck_capacity .truck_barra {
+    width: 100%;
+    height: 20px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: var(--fondo-barra);
+}
+
+.truck_capacity .truck_relleno {
     height: 100%;
     background: var(--verde);
     transition: width 0.4s;
+}
+
+/*==========================================
+    CONFIGFORM
+========================================== */
+.config_form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.config_form .config_campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.config_form label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.config_form input {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    background: var(--blanco);
+    color: var(--negro);
+    font-family: inherit;
+}
+
+.config_form input:focus {
+    outline: 2px solid var(--verde-claro);
+    border-color: var(--verde);
+}
+
+.config_form .config_boton {
+    padding: 10px;
+    border: 1px solid var(--verde);
+    border-radius: 6px;
+    background: var(--verde);
+    color: var(--blanco);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.config_form .config_boton:hover {
+    background: var(--verde-oscuro);
+}
+
+/*==========================================
+    ORDERFORM
+========================================== */
+.order_form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.order_form .order_id,
+.order_form .order_peso,
+.order_form .order_beneficio,
+.order_form .order_x,
+.order_form .order_y {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.order_form label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.order_form input {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    background: var(--blanco);
+    color: var(--negro);
+    font-family: inherit;
+}
+
+.order_form input:focus {
+    outline: 2px solid var(--verde-claro);
+    border-color: var(--verde);
+}
+
+.order_form .order_boton {
+    padding: 10px;
+    border: 1px solid var(--verde);
+    border-radius: 6px;
+    background: var(--verde);
+    color: var(--blanco);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.order_form .order_boton:hover {
+    background: var(--verde-oscuro);
+}
+
+/*==========================================
+    HOME
+========================================== */
+.panel_principal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.panel_principal h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--negro);
+}
+
+.panel_principal h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+/* Dos columnas superiores */
+.panel_superior {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 20px;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* Columna izquierda */
+.panel_izquierdo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    padding: 10px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Columna derecha: mapa */
+.panel_derecho {
+    min-width: 0;
+    min-height: auto;
+    padding: 12px;
+    background: #edf1eb;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+}
+
+/* Secciones inferiores */
+.seccion_estadisticas,
+.seccion_tiempo_real {
+    width: 100%;
+    padding: 20px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/*==========================================
+    DISEÑO RESPONSIVE
+========================================== */
+@media (max-width: 768px) {
+    .panel_principal {
+        padding: 14px;
+    }
+
+    .panel_principal h1 {
+        font-size: 23px;
+    }
+
+    .panel_superior {
+        grid-template-columns: 1fr;
+    }
+
+    .panel_derecho {
+        min-height: 300px;
+    }
 }
