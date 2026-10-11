@@ -1,0 +1,32 @@
+/*==========================================
+    VARIABLES
+========================================== */
+:root {
+    --blanco: #ffffff;
+    --negro: #000000;
+    --verde: #47803f;
+}
+
+/*==========================================
+    ESTILOS GENERALES
+========================================== */
+body {
+    background: var(--blanco);
+    color: var(--negro);
+}
+
+/*==========================================
+    TRUCKCAPACITY
+========================================== */
+.truck_barra {
+    width: 400px;
+    height: 20px;
+    border: 2px solid var(--negro);
+    background: #EAE3D5;
+}
+
+.truck_relleno {
+    height: 100%;
+    background: var(--verde);
+    transition: width 0.4s;
+}
