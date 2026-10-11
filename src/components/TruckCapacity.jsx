@@ -4,8 +4,8 @@
 function TruckCapacity({ pesoActual, capacidad}) {
     const porcentaje = capacidad > 0 ? Math.min((pesoActual / capacidad) * 100, 100) : 0;  // Evita dividir entre cero y no pasa de 100%
     return (
-        <div>
-            <p>Ocupación: ({Math.round(porcentaje)}%)</p>
+        <div className="truck_capacity">
+            <label htmlFor="ocupacion">Ocupación: ({Math.round(porcentaje)}%)</label>
             <div className="truck_barra">
                 <div className="truck_relleno" style={{ width: `${porcentaje}%` }} /> {/* Muestra el progreso de la carga */}
             </div>
