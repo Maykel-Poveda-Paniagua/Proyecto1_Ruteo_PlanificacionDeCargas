@@ -35,8 +35,7 @@ body {
     max-width: 400px;
 }
 
-.truck_capacity label {
-    display: block;
+.truck_capacity_label {
     margin-bottom: 8px;
     font-weight: 600;
 }
@@ -161,6 +160,12 @@ body {
 
 .order_form .order_boton:hover {
     background: var(--verde-oscuro);
+}
+
+.order_form .order_error {
+    margin: 0;
+    font-size: 13px;
+    color: #b3261e;
 }
 
 /*==========================================

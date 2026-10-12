@@ -12,10 +12,10 @@ function OrderForm({ onAgregar }) {
     const [error, setError] = useState('')
     
     const agregarPedido = () => {
-        if (id === '' || peso === '' || beneficio === '' || x === '' || y === ''){
+        if (id.trim() === '' || peso === '' || beneficio === '' || x === '' || y === ''){
             setError('Todos los campos son obligatorios')
         
-        } else if (peso <= 0 || beneficio <= 0 || x < 0 || x > 100 || y < 0 || y > 100) {
+        } else if (Number(peso) <= 0 || Number(beneficio) <= 0 || Number(x) < 0 || Number(x) > 100 || Number(y) < 0 || Number(y) > 100) {
             setError('Los valores de peso, beneficio y coordenadas deben ser válidos')
         } else {
             setError('')
@@ -38,7 +38,7 @@ function OrderForm({ onAgregar }) {
                     type="text"
                     id="id"
                     value={id}
-                    onChange={(e) => setId(e.target.value)}
+                    onChange={(e) => { setId(e.target.value); setError('')}}
                 />
             </div>
 
@@ -49,7 +49,7 @@ function OrderForm({ onAgregar }) {
                     type="number"
                     id="peso"
                     value={peso}
-                    onChange={(e) => setPeso(e.target.value)}
+                    onChange={(e) => { setPeso(e.target.value); setError('')}}
                     min="1"
                 />
             </div>
@@ -61,7 +61,7 @@ function OrderForm({ onAgregar }) {
                     type="number"
                     id="beneficio"
                     value={beneficio}
-                    onChange={(e) => setBeneficio(e.target.value)}
+                    onChange={(e) => { setBeneficio(e.target.value); setError('')}}
                     min="1"
                 />
             </div>
@@ -73,7 +73,7 @@ function OrderForm({ onAgregar }) {
                     type="number"
                     id="x"
                     value={x}
-                    onChange={(e) => setX(e.target.value)}
+                    onChange={(e) => { setX(e.target.value); setError('')}}
                     min="0"
                     max="100"
                 />
@@ -86,14 +86,17 @@ function OrderForm({ onAgregar }) {
                     type="number"
                     id="y"
                     value={y}
-                    onChange={(e) => setY(e.target.value)}
+                    onChange={(e) => { setY(e.target.value); setError('')}}
                     min="0"
                     max="100"
                 />
             </div>
 
-                {/* boton de agregar */}
-                <button className="order_boton" onClick={agregarPedido}>Agregar pedido</button>
+            {/* boton de agregar */}
+            <button className="order_boton" onClick={agregarPedido}>Agregar pedido</button>
+
+            {/* Muestra el error si hay alguno */}
+            {error && <p className="order_error">{error}</p>}
 
         </div>
     )
