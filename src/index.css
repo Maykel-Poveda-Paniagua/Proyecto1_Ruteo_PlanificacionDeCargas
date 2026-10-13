@@ -32,7 +32,6 @@ body {
 ========================================== */
 .truck_capacity {
     width: 100%;
-    max-width: 400px;
 }
 
 .truck_capacity_label {
@@ -194,9 +193,38 @@ body {
     font-weight: 600;
 }
 
+.orders_sin_actualizar {
+    color: var(--texto-secundario);
+    font-weight: 600;
+}
+
 .orders_descartado,
 .orders_vacio {
     color: var(--texto-secundario);
+}
+
+/*==========================================
+    Boton de ejecutar algoritmo
+==========================================*/
+.ejecutar_algoritmo {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.boton_ejecutar {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton_ejecutar:hover {
+    background: #1d4ed8;
 }
 
 /*==========================================

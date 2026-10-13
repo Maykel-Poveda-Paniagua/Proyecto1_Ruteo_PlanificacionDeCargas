@@ -1,6 +1,6 @@
 // Muestra estadisticas de la ejecucion del algoritmo
 
-function StatePanel({ procesados = 0, seleccionados = [], ganancia = 0, tiempoMs = 0, operaciones = 0 }){
+function StatsPanel({ procesados = 0, seleccionados = [], ganancia = 0, tiempoMs = 0, operaciones = 0 }){
     return (
         <div className="stats_panel">
             <div className="stats_fila">
@@ -28,4 +28,4 @@ function StatePanel({ procesados = 0, seleccionados = [], ganancia = 0, tiempoMs
     )
 }
 
-export default StatePanel
+export default StatsPanel

@@ -1,6 +1,6 @@
 // Tabla con los pedidos ingresados y su estado
 
-function OrderList({pedidos, seleccionados = []}) {
+function OrderList({pedidos, seleccionados = [], hayCambios = false, pedidosNuevos = []}) {
 
     if (pedidos.length === 0) {
         return <p className="orders_vacio">No hay pedidos para mostrar.</p>;
@@ -23,6 +23,7 @@ function OrderList({pedidos, seleccionados = []}) {
                 {pedidos.map((pedido) => {
 
                     const cargado = seleccionados.some((s) => s.id === pedido.id);
+                    const sinActualizar = hayCambios && pedidosNuevos.includes(pedido.id);
 
                     return (
                         <tr key= {pedido.id}> 
@@ -32,8 +33,14 @@ function OrderList({pedidos, seleccionados = []}) {
                             <td>{(pedido.beneficio / pedido.peso).toFixed(2)}</td>
                             <td>{pedido.x}</td>
                             <td>{pedido.y}</td>
-                            <td className={cargado ? 'orders_cargado' : 'orders_descartado'}>
-                                {cargado ? 'Cargado' : 'Pendiente'}
+                            
+                            <td className={sinActualizar ? 'orders_sin_actualizar' : 
+                                            cargado ? 'orders_cargado' :  
+                                            'orders_descartado'}>
+                                
+                                {sinActualizar ? 'Sin actualizar' : 
+                                            cargado ? 'Cargado' : 
+                                            'Descartado'}
                             </td>
                         </tr>
                     )
