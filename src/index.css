@@ -200,6 +200,54 @@ body {
 }
 
 /*==========================================
+    ESTADISTICAS Y STATSPANEL
+==========================================*/
+.stats_contenedor {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.truck_capacity {
+    flex: 0 0 220px;
+    width: 220px;
+    max-width: 220px;
+}
+
+.stats_panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.stats_fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    background: var(--fondo);
+}
+
+.stats_etiqueta {
+    color: var(--texto-secundario);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stats_valor {
+    color: var(--verde-oscuro);
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/*==========================================
     HOME
 ========================================== */
 .panel_principal {

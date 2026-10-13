@@ -4,6 +4,7 @@ import TruckCapacity from '../components/TruckCapacity'
 import ConfigForm from '../components/ConfigForm'
 import OrderForm from '../components/OrderForm'
 import OrderList from '../components/OrderList'
+import StatePanel from '../components/StatsPanel'
 
 function Home() {
 
@@ -56,10 +57,20 @@ function Home() {
 
                 <h2>Estadísticas</h2>
 
-                <TruckCapacity
-                    pesoActual={resultadoEjemplo.pesoTotal}
-                    capacidad={Number(capacidad)}
-                />
+                <div className="stats_contenedor">
+                    <TruckCapacity
+                        pesoActual={resultadoEjemplo.pesoTotal}
+                        capacidad={Number(capacidad)}
+                    />
+
+                    <StatePanel
+                        procesados={resultadoEjemplo.procesados}
+                        seleccionados={resultadoEjemplo.seleccionados}
+                        ganancia={resultadoEjemplo.gananciaTotal}
+                        tiempoMs={resultadoEjemplo.tiempoMs}
+                        operaciones={resultadoEjemplo.operaciones}
+                    />
+                </div>
 
             </div>
 
