@@ -3,11 +3,21 @@ import { useState } from 'react'
 import TruckCapacity from '../components/TruckCapacity'
 import ConfigForm from '../components/ConfigForm'
 import OrderForm from '../components/OrderForm'
+import OrderList from '../components/OrderList'
 
 function Home() {
 
     const [capacidad, setCapacidad] = useState('100');
     const [numPedidos, setNumPedidos] = useState('5');
+    const [pedidos, setPedidos] = useState([]);
+    
+    const agregarPedido = (nuevo) => {
+        if (pedidos.some((p) => p.id === nuevo.id)) {
+            alert('Ya existe un pedido con ese ID')
+            return
+        }
+        setPedidos([...pedidos, nuevo])
+    }
 
     return (
         <div className="panel_principal">
@@ -29,7 +39,7 @@ function Home() {
                     />
 
                     <OrderForm
-                        onAgregar={(pedido) => console.log('Agregando pedido', pedido)}
+                        onAgregar={agregarPedido}
                     />
 
                 </div>
@@ -41,7 +51,7 @@ function Home() {
 
             </div>
 
-            {/* Estadísticas debajo de las dos columnas */}
+            {/* Estadisticas debajo de las dos columnas */}
             <div className="seccion_estadisticas">
 
                 <h2>Estadísticas</h2>
@@ -58,7 +68,10 @@ function Home() {
 
                 <h2>Información en tiempo real</h2>
 
-                {/* Info del sistema */}
+                <OrderList
+                    pedidos={pedidos}
+                    seleccionados={resultadoEjemplo.seleccionados}
+                />
 
             </div>
 
