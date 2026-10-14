@@ -19,7 +19,7 @@
 * {
     box-sizing: border-box;
 }
-
+  
 body {
     margin: 0;
     background: var(--fondo);
@@ -53,6 +53,14 @@ body {
     height: 100%;
     background: var(--verde);
     transition: width 0.4s;
+}
+
+.truck_alerta {
+margin-top: 10px;
+padding: 8px;
+border-radius: 4px;
+font-weight: bold;
+font-size: 13px;
 }
 
 /*==========================================
@@ -166,6 +174,37 @@ body {
     margin: 0;
     font-size: 13px;
     color: #b3261e;
+}
+
+/*==========================================
+    ORDERLIST
+========================================== */
+.orders_tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.orders_tabla th,
+.orders_tabla td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--borde);
+    text-align: left;
+}
+
+.orders_tabla th {
+    background: var(--verde-claro);
+    font-weight: 600;
+}
+
+.orders_cargado {
+    color: var(--verde-oscuro);
+    font-weight: 600;
+}
+
+.orders_descartado,
+.orders_vacio {
+    color: var(--texto-secundario);
 }
 
 /*==========================================
