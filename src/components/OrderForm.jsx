@@ -77,31 +77,31 @@ function OrderForm({ onAgregar }) {
             </div>
 
             <div className="order_x">
-                {/* input de coordenada x */}
                 <label htmlFor="fila">Coordenada Fila:</label>
-                <input
-                    type="number"
+                <select
                     id="fila"
                     value={fila}
                     onChange={(e) => setFila(e.target.value)}
-                    step="1"
-                    min="0"
-                    max="8"
-                />
+                >
+                    <option value="">Seleccionar fila</option>
+                    {Array.from({ length: 9 }, (_, i) => (
+                        <option key={i} value={i}>{i}</option>
+                    ))}
+                </select>
             </div>
 
             <div className="order_y">
-                {/* input de coordenada y */}
                 <label htmlFor="columna">Coordenada Columna:</label>
-                <input
-                    type="number"
+                <select
                     id="columna"
                     value={columna}
                     onChange={(e) => setColumna(e.target.value)}
-                    step="1"
-                    min="0"
-                    max="11"
-                />
+                >
+                    <option value="">Seleccionar columna</option>
+                    {Array.from({ length: 12 }, (_, i) => (
+                        <option key={i} value={i}>{i}</option>
+                    ))}
+                </select>
             </div>
 
             {/* boton de agregar */}

@@ -38,7 +38,7 @@ function OrderList({pedidos, seleccionados = [], hayCambios = false, pedidosNuev
                                             cargado ? 'orders_cargado' :  
                                             'orders_descartado'}>
                                 
-                                {sinActualizar ? 'Sin actualizar' : 
+                                {sinActualizar ? 'Pendiente' : 
                                             cargado ? 'Cargado' : 
                                             'Descartado'}
                             </td>
