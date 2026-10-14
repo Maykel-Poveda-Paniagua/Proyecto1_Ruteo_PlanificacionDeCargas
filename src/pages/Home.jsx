@@ -1,4 +1,4 @@
-import { resultadoEjemplo } from '../utils/datosEjemplo'
+import { generarPedidosAleatorios, seleccionarPedidosVoraz } from '../utils/logistica'
 import { useState } from 'react'
 import TruckCapacity from '../components/TruckCapacity'
 import ConfigForm from '../components/ConfigForm'
@@ -8,7 +8,13 @@ function Home() {
 
     const [capacidad, setCapacidad] = useState('100');
     const [numPedidos, setNumPedidos] = useState('5');
-
+    const [pedidos, setPedidos] = useState([])
+    const [resultado, setResultado] = useState(null)
+    const ejecutarAlgoritmo = (listaPedidos, cap) => {
+        if (listaPedidos.length === 0) return
+        const res = seleccionarPedidosVoraz(listaPedidos, Number(cap))
+        setResultado(res)
+    }
     return (
         <div className="panel_principal">
 
@@ -25,11 +31,19 @@ function Home() {
                         setCapacidad={setCapacidad}
                         numPedidos={numPedidos}
                         setNumPedidos={setNumPedidos}
-                        onGenerar={() => console.log('Generando', numPedidos, 'pedidos')}
+                        onGenerar={() => {
+                            const nuevos = generarPedidosAleatorios(Number(numPedidos))
+                            setPedidos(nuevos)
+                            ejecutarAlgoritmo(nuevos, capacidad)
+                        }}
                     />
 
                     <OrderForm
-                        onAgregar={(pedido) => console.log('Agregando pedido', pedido)}
+                        onAgregar={(pedido) => {
+                            const nuevosPedidos = [...pedidos, pedido]
+                            setPedidos(nuevosPedidos)
+                            ejecutarAlgoritmo(nuevosPedidos, capacidad)
+                        }}
                     />
 
                 </div>
@@ -47,7 +61,8 @@ function Home() {
                 <h2>Estadísticas</h2>
 
                 <TruckCapacity
-                    pesoActual={resultadoEjemplo.pesoTotal}
+                    
+                    pesoActual={resultado?.pesoTotal || 0}
                     capacidad={Number(capacidad)}
                 />
 
