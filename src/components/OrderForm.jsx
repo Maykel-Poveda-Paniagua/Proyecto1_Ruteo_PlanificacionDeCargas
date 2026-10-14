@@ -1,5 +1,5 @@
 // Formulario para ingresar un pedido a mano
-
+import Aviso from './Aviso'
 import { useState } from 'react'
 
 function OrderForm({ onAgregar }) {
@@ -8,29 +8,41 @@ function OrderForm({ onAgregar }) {
     const [beneficio, setBeneficio] = useState('')
     const [fila, setFila] = useState('')
     const [columna, setColumna ] = useState('')
-    
+    const [mensaje, setMensaje] = useState('')
+
     const agregarPedido = () => {
-        if (peso === '' || beneficio === '' || fila === '' || columna === '') {
-            alert('Todos los campos son obligatorios')
+        if (peso === '') {
+            setMensaje('Falta ingresar el peso')
             return
         }
 
-        if (
-            !Number.isFinite(Number(peso)) ||
-            !Number.isFinite(Number(beneficio)) ||
-            !Number.isInteger(Number(fila)) ||
-            !Number.isInteger(Number(columna)) ||
-            Number(peso) <= 0 ||
-            Number(beneficio) <= 0 ||
-            Number(fila) < 0 || Number(fila) > 8 ||
-            Number(columna) < 0 || Number(columna) > 11
-        ) {
-            alert('Los valores de peso, beneficio y coordenadas deben ser válidos')
+        if (beneficio === '') {
+            setMensaje('Falta ingresar el beneficio')
+            return
+        }
+
+        if (fila === '') {
+            setMensaje('Falta seleccionar la fila')
+            return
+        }
+
+        if (columna === '') {
+            setMensaje('Falta seleccionar la columna')
+            return
+        }
+
+        if (Number(peso) <= 0) {
+            setMensaje('El peso debe ser mayor que 0')
+            return
+        }
+
+        if (Number(beneficio) <= 0) {
+            setMensaje('El beneficio debe ser mayor que 0')
             return
         }
 
         if (Number(fila) === 0 && Number(columna) === 0) {
-            alert('No se puede colocar un pedido en la central (0,0).')
+            setMensaje('No se puede colocar un pedido en la central (0,0).')
             return
         }
 
@@ -47,11 +59,12 @@ function OrderForm({ onAgregar }) {
             setFila('')
             setColumna('')
         }
-    } 
+    }
     
     return (
         <div className="order_form">
-            
+            <Aviso mensaje={mensaje} onCerrar={() => setMensaje('')} />
+
             <div className="order_peso">
                 {/* input de peso */}
                 <label htmlFor="peso">Peso:</label>
