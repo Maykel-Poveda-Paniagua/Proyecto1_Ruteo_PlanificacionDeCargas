@@ -32,7 +32,6 @@ body {
 ========================================== */
 .truck_capacity {
     width: 100%;
-    max-width: 400px;
 }
 
 .truck_capacity_label {
@@ -56,11 +55,14 @@ body {
 }
 
 .truck_alerta {
-margin-top: 10px;
-padding: 8px;
-border-radius: 4px;
-font-weight: bold;
-font-size: 13px;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffe69c;
 }
 
 /*==========================================
@@ -202,9 +204,86 @@ font-size: 13px;
     font-weight: 600;
 }
 
+.orders_sin_actualizar {
+    color: var(--texto-secundario);
+    font-weight: 600;
+}
+
 .orders_descartado,
 .orders_vacio {
     color: var(--texto-secundario);
+}
+
+/*==========================================
+    Boton de ejecutar algoritmo
+==========================================*/
+.ejecutar_algoritmo {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.boton_ejecutar {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton_ejecutar:hover {
+    background: #1d4ed8;
+}
+
+/*==========================================
+    ESTADISTICAS Y STATSPANEL
+==========================================*/
+.stats_contenedor {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.truck_capacity {
+    flex: 0 0 220px;
+    width: 220px;
+    max-width: 220px;
+}
+
+.stats_panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.stats_fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    background: var(--fondo);
+}
+
+.stats_etiqueta {
+    color: var(--texto-secundario);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stats_valor {
+    color: var(--verde-oscuro);
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
 /*==========================================
@@ -273,68 +352,6 @@ font-size: 13px;
     border: 1px solid var(--borde);
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-}
-
-
-/*==========================================
-STATSPANEL
-========================================== */
-.stats_contenedor {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
-    margin-top: 16px;
-}
-
-.stats_item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background: var(--verde-claro);
-    border: 1px solid var(--borde);
-    border-radius: 8px;
-    min-width: 200px;
-}
-
-.stats_item span:first-child {
-    color: var(--texto-secundario);
-    font-size: 14px;
-}
-
-.stats_item span:last-child {
-    font-weight: 600;
-    color: var(--verde-oscuro);
-}
-
-/* Grid de 2x2 para las métricas */
-.stats_panel {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    flex: 1;
-}
-
-/* Botón ejecutar algoritmo */
-.boton_ejecutar {
-    padding: 12px 24px;
-    background: var(--verde);
-    color: var(--blanco);
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.boton_ejecutar:hover {
-    background: var(--verde-oscuro);
-}
-
-.ejecutar_algoritmo {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
 }
 
 /*==========================================
