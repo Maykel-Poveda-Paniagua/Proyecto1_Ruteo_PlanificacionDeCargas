@@ -6,11 +6,11 @@ function OrderForm({ onAgregar }) {
     
     const [peso, setPeso] = useState('')
     const [beneficio, setBeneficio] = useState('')
-    const [x, setX] = useState('')
-    const [y, setY] = useState('')
+    const [fila, setFila] = useState('')
+    const [columna, setColumna ] = useState('')
     
     const agregarPedido = () => {
-        if (peso === '' || beneficio === '' || x === '' || y === '') {
+        if (peso === '' || beneficio === '' || fila === '' || columna === '') {
             alert('Todos los campos son obligatorios')
             return
         }
@@ -18,29 +18,34 @@ function OrderForm({ onAgregar }) {
         if (
             !Number.isFinite(Number(peso)) ||
             !Number.isFinite(Number(beneficio)) ||
-            !Number.isFinite(Number(x)) ||
-            !Number.isFinite(Number(y)) ||
+            !Number.isInteger(Number(fila)) ||
+            !Number.isInteger(Number(columna)) ||
             Number(peso) <= 0 ||
             Number(beneficio) <= 0 ||
-            Number(x) < 0 || Number(x) > 100 ||
-            Number(y) < 0 || Number(y) > 100
+            Number(fila) < 0 || Number(fila) > 8 ||
+            Number(columna) < 0 || Number(columna) > 11
         ) {
             alert('Los valores de peso, beneficio y coordenadas deben ser válidos')
+            return
+        }
+
+        if (Number(fila) === 0 && Number(columna) === 0) {
+            alert('No se puede colocar un pedido en la central (0,0).')
             return
         }
 
         const agregado = onAgregar({
             peso: Number(peso),
             beneficio: Number(beneficio),
-            x: Number(x),
-            y: Number(y)
+            fila: Number(fila),
+            columna: Number(columna)
         })
 
         if (agregado) {
             setPeso('')
             setBeneficio('')
-            setX('')
-            setY('')
+            setFila('')
+            setColumna('')
         }
     } 
     
@@ -73,27 +78,29 @@ function OrderForm({ onAgregar }) {
 
             <div className="order_x">
                 {/* input de coordenada x */}
-                <label htmlFor="x">Coordenada X:</label>
+                <label htmlFor="fila">Coordenada Fila:</label>
                 <input
                     type="number"
-                    id="x"
-                    value={x}
-                    onChange={(e) => setX(e.target.value)}
+                    id="fila"
+                    value={fila}
+                    onChange={(e) => setFila(e.target.value)}
+                    step="1"
                     min="0"
-                    max="100"
+                    max="8"
                 />
             </div>
 
             <div className="order_y">
                 {/* input de coordenada y */}
-                <label htmlFor="y">Coordenada Y:</label>
+                <label htmlFor="columna">Coordenada Columna:</label>
                 <input
                     type="number"
-                    id="y"
-                    value={y}
-                    onChange={(e) => setY(e.target.value)}
+                    id="columna"
+                    value={columna}
+                    onChange={(e) => setColumna(e.target.value)}
+                    step="1"
                     min="0"
-                    max="100"
+                    max="11"
                 />
             </div>
 
