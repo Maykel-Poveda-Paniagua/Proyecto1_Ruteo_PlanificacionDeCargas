@@ -1,4 +1,15 @@
-// Formulario para ingresar un pedido a mano
+/**
+ * Componente que permite ingresar pedidos manualmente
+ *
+ * Administra los datos del formulario, valida los valores ingresados
+ * y envía el pedido al componente encargado de agregarlo a la lista
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {Function} props.onAgregar - Funcion que recibe los datos del pedido
+ * y devuelve un valor que indica si se agrego correctamente
+ * @returns {JSX.Element} Formulario para ingresar y validar un pedido
+ */
 
 import Aviso from './Aviso'
 import { useState } from 'react'
@@ -12,6 +23,15 @@ function OrderForm({ onAgregar }) {
     const [columna, setColumna ] = useState('')
     const [mensaje, setMensaje] = useState('')
 
+    /**
+     * Valida los datos ingresados y solicita agregar el pedido.
+     *
+     * Comprueba que los campos estén completos, que el peso y el beneficio
+     * sean positivos y que la ubicación no corresponda a la central.
+     * Si el pedido se agrega correctamente, limpia los campos del formulario.
+     *
+     * @returns {void}
+     */
     const agregarPedido = () => {
 
         // Comprueba que todos los campos esten llenos

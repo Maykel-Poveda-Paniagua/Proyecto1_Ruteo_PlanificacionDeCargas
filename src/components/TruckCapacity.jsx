@@ -1,5 +1,16 @@
-// El componente TruckCapacity muestra la capacidad de un camion mostrando
-// una barra que indica el porcentaje de carga actual
+/**
+ * Componente que muestra la capacidad de carga del camion
+ *
+ * Representa el porcentaje de ocupacion mediante una barra visual
+ * y muestra una alerta cuando se alcanza, se supera o se aproxima
+ * al limite de capacidad.
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {number} props.pesoActual - Peso total de la carga actual
+ * @param {number} props.capacidad - Capacidad maxima del camion
+ * @returns {JSX.Element} Barra de ocupacion y mensaje de alerta
+ */
 function TruckCapacity({ pesoActual, capacidad}) {
     const porcentaje = capacidad > 0 ? Math.min((pesoActual / capacidad) * 100, 100) : 0;
     const excedido = pesoActual > capacidad;

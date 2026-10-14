@@ -1,5 +1,16 @@
-// Mapa donde los pedidos están en las intersecciones y la ruta
-// recorre las calles. La central esta en (0,0).
+/**
+ * Componente que representa el mapa de pedidos y la ruta de distribucion
+ *
+ * Muestra la central, las intersecciones y los pedidos segun su estado
+ * Permite reproducir paso a paso la ruta generada por el algoritmo
+ 
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {Array<Object>} [props.pedidos=[]] - Pedidos que se muestran en el mapa
+ * @param {Object|null} [props.resultado=null] - Resultado de la planificacion
+ * @param {Array<number|string>} [props.pedidosNuevos=[]] - Identificadores de pedidos pendientes de planificacion
+ * @returns {JSX.Element} Mapa interactivo de pedidos y ruta
+ */
 
 import { useState, useEffect } from 'react'
 
@@ -8,8 +19,18 @@ const COLUMNAS = 12
 const CELDA = 50     // separacion entre calles
 const MARGEN = 30    // espacio alrededor del mapa
 
-// Convierten fila y columna en posicion dentro del SVG
+/**
+ * Convierte una columna en una coordenada horizontal del SVG
+ * @param {number} columna - Indice de la columna
+ * @returns {number} Posición horizontal en el mapa
+ */
 const posX = (columna) => MARGEN + columna * CELDA
+
+/**
+ * Convierte una fila en una coordenada vertical del SVG
+ * @param {number} fila - Indice de la fila
+ * @returns {number} Posición vertical en el mapa
+ */
 const posY = (fila) => MARGEN + fila * CELDA
 
 function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
@@ -173,8 +194,7 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
                             <text className="mapa_texto_nodo" x={cx} y={cy + 4} textAnchor="middle">
                                 {visible.id}
                             </text>
-
-                            
+                                  
                             {/* Cuantos pedidos adicionales comparten la posicion */}
                             {grupo.length > 1 && (
                                 <g>

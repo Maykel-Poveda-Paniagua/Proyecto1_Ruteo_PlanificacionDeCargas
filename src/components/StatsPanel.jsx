@@ -1,4 +1,18 @@
-// Muestra estadisticas de la ejecucion del algoritmo
+/**
+ * Componente que muestra las estadisticas de ejecucion del algoritmo
+ *
+ * Presenta la cantidad de pedidos seleccionados respecto a los procesados
+ * la ganancia total, el tiempo de ejecucion y las operaciones registradas
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {number} [props.procesados=0] - Cantidad de pedidos procesados
+ * @param {Array<Object>} [props.seleccionados=[]] - Pedidos seleccionados por el algoritmo
+ * @param {number} [props.ganancia=0] - Ganancia total obtenida
+ * @param {number} [props.tiempoMs=0] - Tiempo de ejecucion en milisegundos
+ * @param {number} [props.operaciones=0] - Total de operaciones registradas
+ * @returns {JSX.Element} Panel con las estadisticas de ejecucion
+ */
 
 function StatsPanel({ procesados = 0, seleccionados = [], ganancia = 0, tiempoMs = 0, operaciones = 0 }){
     return (

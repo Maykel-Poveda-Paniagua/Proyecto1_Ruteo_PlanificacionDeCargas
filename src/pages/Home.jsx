@@ -1,3 +1,12 @@
+/**
+ * Página principal del sistema de ruteo y planificación de cargas.
+ *
+ * Coordina los formularios de pedidos, la visualización del mapa,
+ * la ejecución del algoritmo y la presentación de estadísticas.
+ *
+ * @component
+ * @returns {JSX.Element} Interfaz principal del sistema.
+ */
 import TruckCapacity from '../components/TruckCapacity'
 import ConfigForm from '../components/ConfigForm'
 import OrderForm from '../components/OrderForm'

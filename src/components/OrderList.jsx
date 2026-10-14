@@ -1,4 +1,17 @@
-// Tabla con los pedidos ingresados y su estado
+/**
+ * Componente que muestra una tabla con los pedidos ingresados y su estado
+ *
+ * Presenta los datos de cada pedido y determina si esta cargado
+ * descartado o pendiente de planificacion
+ *
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {Array<Object>} props.pedidos - Lista de pedidos ingresados
+ * @param {Array<Object>} [props.seleccionados=[]] - Pedidos seleccionados por el algoritmo
+ * @param {boolean} [props.hayCambios=false] - Indica si existen cambios pendientes de planificacion
+ * @param {Array<string|number>} [props.pedidosNuevos=[]] - Identificadores de los pedidos nuevos.
+ * @returns {JSX.Element} Tabla con los datos y estados de los pedidos, o un mensaje si esta vacia.
+ */
 
 function OrderList({pedidos, seleccionados = [], hayCambios = false, pedidosNuevos = []}) {
 
