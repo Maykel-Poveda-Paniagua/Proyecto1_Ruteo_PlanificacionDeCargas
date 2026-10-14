@@ -5,6 +5,7 @@ import ConfigForm from '../components/ConfigForm'
 import OrderForm from '../components/OrderForm'
 import OrderList from '../components/OrderList'
 import StatsPanel from '../components/StatsPanel'
+import ViewMap from '../components/ViewMap'
 
 function Home() {
 
@@ -111,7 +112,7 @@ function Home() {
 
                 {/* Columna derecha: mapa */}
                 <div className="panel_derecho">
-                    {/* componente del mapa */}
+                    <ViewMap pedidos={pedidos} resultado={resultado} pedidosNuevos={pedidosNuevos}/>
                 </div>
 
             </div>

@@ -14,8 +14,8 @@ function OrderList({pedidos, seleccionados = [], hayCambios = false, pedidosNuev
                     <th>Peso</th>
                     <th>Beneficio</th>
                     <th>Rentabilidad</th>
-                    <th>X</th>
-                    <th>Y</th>
+                    <th>Fila</th>
+                    <th>Columna</th>
                     <th>Estado</th>
                 </tr>
             </thead>
@@ -31,14 +31,14 @@ function OrderList({pedidos, seleccionados = [], hayCambios = false, pedidosNuev
                             <td>{pedido.peso}</td>
                             <td>{pedido.beneficio}</td>
                             <td>{(pedido.beneficio / pedido.peso).toFixed(2)}</td>
-                            <td>{pedido.x}</td>
-                            <td>{pedido.y}</td>
+                            <td>{pedido.fila}</td>
+                            <td>{pedido.columna}</td>
                             
                             <td className={sinActualizar ? 'orders_sin_actualizar' : 
                                             cargado ? 'orders_cargado' :  
                                             'orders_descartado'}>
                                 
-                                {sinActualizar ? 'Sin actualizar' : 
+                                {sinActualizar ? 'Pendiente' : 
                                             cargado ? 'Cargado' : 
                                             'Descartado'}
                             </td>
