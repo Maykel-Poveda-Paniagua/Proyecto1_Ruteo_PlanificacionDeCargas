@@ -1,9 +1,11 @@
 // Formulario para ingresar un pedido a mano
+
 import Aviso from './Aviso'
 import { useState } from 'react'
 
 function OrderForm({ onAgregar }) {
-    
+
+    // Guarda los datos ingresados y el mensaje de validacion
     const [peso, setPeso] = useState('')
     const [beneficio, setBeneficio] = useState('')
     const [fila, setFila] = useState('')
@@ -11,6 +13,8 @@ function OrderForm({ onAgregar }) {
     const [mensaje, setMensaje] = useState('')
 
     const agregarPedido = () => {
+
+        // Comprueba que todos los campos esten llenos
         if (peso === '') {
             setMensaje('Falta ingresar el peso')
             return
@@ -41,11 +45,13 @@ function OrderForm({ onAgregar }) {
             return
         }
 
+        // Evita colocar un pedido en la ubicacion de la central
         if (Number(fila) === 0 && Number(columna) === 0) {
             setMensaje('No se puede colocar un pedido en la central (0,0).')
             return
         }
 
+        // Envia los datos del pedido al componente que lo agrega a la lista
         const agregado = onAgregar({
             peso: Number(peso),
             beneficio: Number(beneficio),
@@ -53,6 +59,7 @@ function OrderForm({ onAgregar }) {
             columna: Number(columna)
         })
 
+        // Limpia el formulario si se agrego correctamente
         if (agregado) {
             setPeso('')
             setBeneficio('')
@@ -63,6 +70,7 @@ function OrderForm({ onAgregar }) {
     
     return (
         <div className="order_form">
+            {/* Muetra los mensajes de validacion */}
             <Aviso mensaje={mensaje} onCerrar={() => setMensaje('')} />
 
             <div className="order_peso">
@@ -89,6 +97,7 @@ function OrderForm({ onAgregar }) {
                 />
             </div>
 
+            {/* Seleccion de la fila */}
             <div className="order_x">
                 <label htmlFor="fila">Coordenada Fila:</label>
                 <select
@@ -103,6 +112,7 @@ function OrderForm({ onAgregar }) {
                 </select>
             </div>
 
+            {/* Seleccion de la columna */}
             <div className="order_y">
                 <label htmlFor="columna">Coordenada Columna:</label>
                 <select
@@ -110,6 +120,7 @@ function OrderForm({ onAgregar }) {
                     value={columna}
                     onChange={(e) => setColumna(e.target.value)}
                 >
+
                     <option value="">Seleccionar columna</option>
                     {Array.from({ length: 12 }, (_, i) => (
                         <option key={i} value={i}>{i}</option>
@@ -117,7 +128,7 @@ function OrderForm({ onAgregar }) {
                 </select>
             </div>
 
-            {/* boton de agregar */}
+            {/* Boton de agregar */}
             <button className="order_boton" onClick={agregarPedido}>
                 Agregar pedido
             </button>

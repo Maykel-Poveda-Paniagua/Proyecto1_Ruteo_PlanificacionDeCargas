@@ -9,6 +9,8 @@ import ViewMap from '../components/ViewMap'
 
 
 function Home() {
+
+    // Obtiene los estados y las funciones
     const {
         resultado,
         capacidad,
@@ -28,16 +30,19 @@ function Home() {
 
     return (
         <div className="panel_principal">
+
+            {/* Muestra los mensajes de las validaciones */}
             <Aviso mensaje={mensaje} onCerrar={() => setMensaje('')} />
 
             <h1>Ruteo y Planificación de Cargas</h1>
 
-            {/* Dos columnas superiores */}
+            {/* Formulario y el mapa en dos columnas */}
             <div className="panel_superior">
 
-                {/* Columna izquierda: formularios */}
+                {/* Columna izquierda: registro de los pedidos */}
                 <div className="panel_izquierdo">
 
+                    {/* Configurar el camion y generar pedidos */}
                     <ConfigForm
                         capacidad={capacidad}
                         setCapacidad={setCapacidad}
@@ -46,19 +51,21 @@ function Home() {
                         onGenerar={generarPedidos}
                     />
 
+                    {/* Permite ingresar pedidos manualmente */}
                     <OrderForm
                         onAgregar={agregarPedido}
                     />
 
                 </div>
 
-                {/* Columna derecha: mapa */}
+                {/* Columna derecha: mapa con los pedidos */}
                 <div className="panel_derecho">
                     <ViewMap pedidos={pedidos} resultado={resultado} pedidosNuevos={pedidosNuevos}/>
                 </div>
 
             </div>
 
+            {/* Ejecuta el algoritmo con los pedidos registrados */}
             <div className="ejecutar_algoritmo">
                 <button className="boton_ejecutar"
                     onClick={ejecutar} 
@@ -90,7 +97,7 @@ function Home() {
 
             </div>
 
-            {/* Info en tiempo real */}
+            {/* Muestra los pedidos y sus estados en tiempo real */}
             <div className="seccion_tiempo_real">
 
                 <h2>Información en tiempo real</h2>

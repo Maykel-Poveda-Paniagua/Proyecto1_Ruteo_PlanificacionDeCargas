@@ -19,10 +19,13 @@ function OrderList({pedidos, seleccionados = [], hayCambios = false, pedidosNuev
                     <th>Estado</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 {pedidos.map((pedido) => {
 
+                    // Comprueba si el algoritmo selecciono el pedido
                     const cargado = seleccionados.some((s) => s.id === pedido.id);
+
+                    // Identifica los pedidos nuevos que todavia no se han planificado
                     const sinActualizar = hayCambios && pedidosNuevos.includes(pedido.id);
 
                     return (
@@ -30,10 +33,13 @@ function OrderList({pedidos, seleccionados = [], hayCambios = false, pedidosNuev
                             <td>{pedido.id}</td>
                             <td>{pedido.peso}</td>
                             <td>{pedido.beneficio}</td>
+
+                            {/* Beneficio obtenido por cada unidad de peso */}
                             <td>{(pedido.beneficio / pedido.peso).toFixed(2)}</td>
                             <td>{pedido.fila}</td>
                             <td>{pedido.columna}</td>
                             
+                            {/* Asigna un ClassName y un estados segun la situacion que esta el pedido */}
                             <td className={sinActualizar ? 'orders_sin_actualizar' : 
                                             cargado ? 'orders_cargado' :  
                                             'orders_descartado'}>

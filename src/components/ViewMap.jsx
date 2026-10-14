@@ -6,16 +6,21 @@ import { useState, useEffect } from 'react'
 const FILAS = 9
 const COLUMNAS = 12
 const CELDA = 50     // separacion entre calles
-const MARGEN = 30    // espacio alrededor
+const MARGEN = 30    // espacio alrededor del mapa
 
-// Convierten fila/columna en posicion dentro del SVG
+// Convierten fila y columna en posicion dentro del SVG
 const posX = (columna) => MARGEN + columna * CELDA
 const posY = (fila) => MARGEN + fila * CELDA
 
 function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
+
+    // Guarda los identificadores de los pedidos seleccionados por el algoritmo
     const seleccionados = new Set((resultado?.seleccionados ?? []).map((p) => p.id))
+
+    // Obtiene los tramos de la ruta calculada
     const pasos = resultado?.pasosRuta ?? []
 
+    // Controlan cuantos tramos se muestran y si la ruta se esta reproduciendo
     const [visibles, setVisibles] = useState(0)
     const [reproduciendo, setReproduciendo] = useState(false)
 
@@ -25,6 +30,7 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
     useEffect(() => {
         if (!reproduciendo) return
 
+        // Detiene la animacion cuando se muestra todos los tramos
         if (visibles >= pasos.length) {
             setReproduciendo(false)
             setVisibles(pasos.length)
@@ -41,26 +47,29 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
         setVisibles(0)
     }, [resultado])
 
+    // Inicia la reproduccion desde el primer tramo
     const reproducir = () => {
         setVisibles(0)
         setReproduciendo(true)
     }
 
+    // Detiene la reproduccion y muestra el siguiente tramo
     const siguientePaso = () => {
         setReproduciendo(false)
         setVisibles((v) => Math.min((v ?? 0) + 1, pasos.length))
     }
 
+    // Calcula las dimenciones totales del mapa
     const ancho = posX(COLUMNAS - 1) + MARGEN
     const alto = posY(FILAS - 1) + MARGEN
 
-    // Antes de ejecutar, o si el pedido es nuevo, el estado es pendiente
+    // Determina el estado de cada pedido segun el resultado de la planificacion
     const estadoDe = (pedido) => {
         if (resultado === null || pedidosNuevos.includes(pedido.id)) return 'pendiente'
         return seleccionados.has(pedido.id) ? 'seleccionado' : 'descartado'
     }
 
-    // Agrupa los pedidos que caen en la misma interseccion
+    // Agrupa los pedidos que comparten la misma interseccion
     const grupos = {}
     pedidos.forEach((p) => {
         const clave = `${p.fila}-${p.columna}`
@@ -101,7 +110,7 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
                     />
                 ))}
 
-                {/* Numeros de los ejes */}
+                {/* Numeros de los ejes de las columnas*/}
                 {Array.from({ length: COLUMNAS }, (_, columna) => (
                     <text key={`tc${columna}`} className="mapa_eje"
                         x={posX(columna)} y={14} textAnchor="middle">
@@ -109,6 +118,7 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
                     </text>
                 ))}
 
+                {/* Numeros de los ejes de las filas*/}
                 {Array.from({ length: FILAS }, (_, fila) => (
                     <text key={`tf${fila}`} className="mapa_eje"
                         x={10} y={posY(fila) + 4} textAnchor="middle">
@@ -116,7 +126,7 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
                     </text>
                 ))}
 
-                {/* Ruta donde cada tramo va primero en horizontal y luego en vertical */}
+                {/* Muestra los tramos visibles de la ruta */}
                 {pasos.slice(0, mostrados).map((paso, i) => (
                     <polyline
                         key={`ruta${i}`}
@@ -139,7 +149,7 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
                     C
                 </text>
 
-                {/* Pedidos en las intersecciones */}
+                {/* Pedidos agrupados en las intersecciones */}
                 {Object.values(grupos).map((grupo) => {
                     const visible = [...grupo].sort(
                         (a, b) => prioridad.indexOf(estadoDe(a)) - prioridad.indexOf(estadoDe(b))
@@ -150,6 +160,7 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
 
                     return (
                         <g key={`${visible.fila}-${visible.columna}`}>
+                            {/* Muestra la informacion de todos los pedidos del grupo */}
                             <title>
                                 {`Fila ${visible.fila}, columna ${visible.columna}\n` +
                                     grupo.map((p) => `${p.id}: ${estadoDe(p)}`).join('\n')}
@@ -163,6 +174,8 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
                                 {visible.id}
                             </text>
 
+                            
+                            {/* Cuantos pedidos adicionales comparten la posicion */}
                             {grupo.length > 1 && (
                                 <g>
                                     <circle className="mapa_badge" cx={cx + 12} cy={cy - 12} r="8" />
@@ -176,6 +189,7 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
                 })}
             </svg>
 
+            {/* Controles para reproducir la velocidad y poder recorrer la ruta */}
             <div className="mapa_controles">
                 
                 <button onClick={reproducir} disabled={pasos.length === 0}>Reproducir ruta</button>
@@ -187,12 +201,14 @@ function ViewMap({ pedidos = [], resultado = null, pedidosNuevos = [] }) {
                     Ver completa
                 </button>
 
+                {/* Progreso de la ruta */}
                 <span className="mapa_progreso">
                     {pasos.length > 0 && `Tramo ${mostrados} de ${pasos.length}`}
                 </span>
 
             </div>
 
+            {/* Colores y simbolos utilizados en el mapa */}
             <div className="mapa_leyenda">
                 <span>C: central</span>
                 <span>Verde: cargado</span>
