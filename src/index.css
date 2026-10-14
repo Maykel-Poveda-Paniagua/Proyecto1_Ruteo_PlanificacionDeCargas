@@ -11,6 +11,7 @@
     --fondo-barra: #eae3d5;
     --borde: #d9dfd8;
     --texto-secundario: #626b61;
+    --ruta: #d97706;
 }
 
 /*==========================================
@@ -142,7 +143,8 @@ body {
     font-weight: 600;
 }
 
-.order_form input {
+.order_form input, 
+.order_form select {
     width: 100%;
     padding: 5px 8px;
     border: 1px solid var(--borde);
@@ -152,7 +154,8 @@ body {
     font-family: inherit;
 }
 
-.order_form input:focus {
+.order_form input:focus, 
+.order_form select:focus {
     outline: 2px solid var(--verde-claro);
     border-color: var(--verde);
 }
@@ -211,6 +214,39 @@ body {
 
 .orders_descartado,
 .orders_vacio {
+    color: #b3261e;
+    font-weight: 600;
+}
+
+.mapa_controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.mapa_controles button {
+    padding: 6px 12px;
+    border: 1px solid var(--verde);
+    border-radius: 6px;
+    background: var(--verde);
+    color: var(--blanco);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mapa_controles button:hover:not(:disabled) {
+    background: var(--verde-oscuro);
+}
+
+.mapa_controles button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mapa_progreso {
+    font-size: 13px;
     color: var(--texto-secundario);
 }
 
@@ -284,6 +320,89 @@ body {
     font-size: 15px;
     font-weight: 700;
     white-space: nowrap;
+}
+
+/*==========================================
+    VIEWMAP
+========================================== */
+.view_map h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.mapa_svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+}
+
+.mapa_calle {
+    stroke: var(--borde);
+    stroke-width: 1.5;
+}
+
+.mapa_eje {
+    fill: var(--texto-secundario);
+    font-size: 10px;
+}
+
+.mapa_ruta {
+    fill: none;
+    stroke: var(--ruta);
+    stroke-width: 3;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.mapa_ruta_regreso {
+    stroke-dasharray: 6 5;
+    opacity: 0.7;
+}
+
+.mapa_central {
+    fill: var(--negro);
+}
+
+.mapa_texto_central,
+.mapa_texto_nodo {
+    fill: var(--blanco);
+    font-size: 10px;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+.mapa_nodo {
+    stroke: var(--blanco);
+    stroke-width: 2;
+}
+
+.mapa_nodo_seleccionado { fill: var(--verde); }
+.mapa_nodo_descartado   { fill: #c0392b; }
+.mapa_nodo_pendiente    { fill: var(--texto-secundario); }
+
+.mapa_leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--texto-secundario);
+}
+
+.mapa_badge {
+    fill: var(--negro);
+    stroke: var(--blanco);
+    stroke-width: 1.5;
+}
+
+.mapa_texto_badge {
+    fill: var(--blanco);
+    font-size: 9px;
+    font-weight: 700;
+    pointer-events: none;
 }
 
 /*==========================================
