@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import {generarPedidosAleatorios, planificarCargaYRuta} from '../algorithms/logistica'
 import TruckCapacity from '../components/TruckCapacity'

@@ -54,6 +54,17 @@ body {
     transition: width 0.4s;
 }
 
+.truck_alerta {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffe69c;
+}
+
 /*==========================================
     CONFIGFORM
 ========================================== */
