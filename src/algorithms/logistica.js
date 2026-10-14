@@ -7,25 +7,41 @@ function validarPedidos(pedidos) {
       throw new Error('Cada pedido necesita un ID de texto único.')
     }
     ids.add(p.id)
-    if (![p.peso, p.beneficio, p.x, p.y].every(Number.isFinite) ||
-        p.peso <= 0 || p.beneficio <= 0) {
-      throw new Error('Peso y beneficio deben ser positivos; coordenadas finitas.')
+    if ( ![p.peso, p.beneficio, p.fila, p.columna].every(Number.isFinite) || p.peso <= 0 || p.beneficio <= 0) {
+      throw new Error('Peso y beneficio deben ser positivos; fila y columna deben ser números finitos.')
+    }
+
+    if ( !Number.isInteger(p.fila) || p.fila < 0 || p.fila > 8 || !Number.isInteger(p.columna) ||
+      p.columna < 0 || p.columna > 11) {
+      throw new Error('La fila debe estar entre 0 y 8 y la columna entre 0 y 11.')
+    }
+
+    if (p.fila === 0 && p.columna === 0){
+      throw new Error('No se puede colocar un pedido en la central (0,0).')
     }
   }
 }
+
 
 export function generarPedidosAleatorios(cantidad) {
   if (!Number.isSafeInteger(cantidad) || cantidad < 1) {
     throw new Error('La cantidad debe ser un entero positivo.')
   }
-  return Array.from({ length: cantidad }, (_, i) => ({
-    id: `P${i + 1}`,
-    peso: Math.floor(Math.random() * 20) + 5,
-    beneficio: Math.floor(Math.random() * 50) + 10,
-    x: Math.floor(Math.random() * 100),
-    y: Math.floor(Math.random() * 100),
-  }))
+  return Array.from({ length: cantidad }, (_, i) => {
+    let fila, columna
+
+    do {
+      fila = Math.floor(Math.random() * 9)
+      columna = Math.floor(Math.random() * 12)
+    } while (fila === 0 && columna === 0)
+
+    return {
+      id: `P${i + 1}`, peso: Math.floor(Math.random() * 20) + 5,
+      beneficio: Math.floor(Math.random() * 50) + 10, fila,columna,
+    }
+  })
 }
+
 
 // Merge sort explícito: permite contar comparaciones y justificar O(N log N).
 function ordenarPorRatio(lista, metricas) {
@@ -89,11 +105,16 @@ export function seleccionarPedidosVoraz(pedidos, capacidad) {
   }
 }
 
-export function rutaVecinoMasCercano(pedidos, central = { x: 0, y: 0 }, regresar = true) {
+export function rutaVecinoMasCercano(pedidos, central = { fila: 0, columna: 0 }, regresar = true) {
   validarPedidos(pedidos)
-  if (!central || ![central.x, central.y].every(Number.isFinite)) {
-    throw new Error('La central necesita coordenadas finitas.')
+  
+  if ( !central || ![central.fila, central.columna].every(Number.isFinite) || !Number.isInteger(central.fila) ||
+    !Number.isInteger(central.columna) ||
+    central.fila < 0 || central.fila > 8 || central.columna < 0 || central.columna > 11
+  ) {
+    throw new Error('La central debe estar dentro de la matriz.')
   }
+
   const inicio = performance.now()
   const visitados = new Set()
   const ruta = []
@@ -101,36 +122,47 @@ export function rutaVecinoMasCercano(pedidos, central = { x: 0, y: 0 }, regresar
   let actual = { ...central }
   let distanciaTotal = 0
   const metricas = { calculosDistancia: 0, comparacionesDistancia: 0, revisionesVisitados: 0 }
-  const distancia = (a, b) => {
-    metricas.calculosDistancia++
-    const d = Math.hypot(a.x - b.x, a.y - b.y)
-    if (!Number.isFinite(d)) throw new Error('Distancia fuera del rango numérico.')
+  
+  const distancia = (a, b) => { metricas.calculosDistancia++
+    const d =Math.abs(a.fila - b.fila) + Math.abs(a.columna - b.columna)
+    
+    if (!Number.isFinite(d)) {
+      throw new Error('Distancia fuera del rango numérico.')
+    }
     return d
   }
+
   while (ruta.length < pedidos.length) {
     let cercano = null
     let menor = Infinity
+    
     for (const pedido of pedidos) {
       metricas.revisionesVisitados++
+      
       if (visitados.has(pedido.id)) continue
       const d = distancia(actual, pedido)
       metricas.comparacionesDistancia++
+      
       // En empate se elige el primero en la lista recibida.
       if (d < menor) { menor = d; cercano = pedido }
     }
+
     visitados.add(cercano.id)
     ruta.push(cercano.id)
     distanciaTotal += menor
     pasosRuta.push({ desde: { ...actual }, hasta: { ...cercano }, distancia: menor, distanciaAcumulada: distanciaTotal })
     actual = { ...cercano }
   }
+
   if (regresar && pedidos.length) {
     const d = distancia(actual, central)
     distanciaTotal += d
     pasosRuta.push({ desde: { ...actual }, hasta: { ...central }, distancia: d, distanciaAcumulada: distanciaTotal, regreso: true })
   }
+
   if (!Number.isFinite(distanciaTotal)) throw new Error('Distancia total fuera del rango numérico.')
-  return { ruta, pasosRuta, distanciaTotal, central: { ...central }, regresar,
+  
+    return { ruta, pasosRuta, distanciaTotal, central: { ...central }, regresar,
     tiempoMs: performance.now() - inicio,
     operaciones: Object.values(metricas).reduce((a, b) => a + b, 0), metricas }
 }
@@ -139,7 +171,8 @@ export function rutaVecinoMasCercano(pedidos, central = { x: 0, y: 0 }, regresar
 export function planificarCargaYRuta(pedidos, capacidad, opciones = {}) {
   const inicio = performance.now()
   const carga = seleccionarPedidosVoraz(pedidos, capacidad)
-  const recorrido = rutaVecinoMasCercano(carga.seleccionados, opciones.central, opciones.regresar)
+  const recorrido = rutaVecinoMasCercano(carga.seleccionados, opciones.central ?? { fila: 0, columna: 0 }, opciones.regresar ?? true)
+  
   return { ...carga, ...recorrido,
     pasos: carga.pasos,
     tiempoMs: performance.now() - inicio,
