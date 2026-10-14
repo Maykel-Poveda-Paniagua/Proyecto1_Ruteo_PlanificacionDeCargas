@@ -6,6 +6,8 @@ import OrderForm from '../components/OrderForm'
 import OrderList from '../components/OrderList'
 import StatsPanel from '../components/StatsPanel'
 import ViewMap from '../components/ViewMap'
+import Aviso from '../components/Aviso'
+
 
 function Home() {
 
@@ -16,6 +18,7 @@ function Home() {
     const [pedidos, setPedidos] = useState([]);
     const [capacidadAplicada, setCapacidadAplicada] = useState(100);
     const [hayCambios, setHayCambios] = useState(false);
+    const [mensaje, setMensaje] = useState('')
     
     const agregarPedido = (nuevo) => {
         const idsExistentes = pedidos.map((p) => Number(p.id.slice(1)))
@@ -45,7 +48,7 @@ function Home() {
             return true
 
         } catch (err) {
-            alert(err.message)
+            setMensaje(err.message)
             return false
         }
     }
@@ -55,12 +58,12 @@ function Home() {
         const capacidadActual = Number(capacidad)
 
         if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > 50) {
-            alert('La cantidad debe ser un entero entre 1 y 50.')
+            setMensaje('La cantidad debe ser un entero entre 1 y 50.')
             return
         }
 
         if (!Number.isFinite(capacidadActual) || capacidadActual <= 0) {
-            alert('La capacidad debe ser mayor que cero.')
+            setMensaje('La capacidad debe ser mayor que cero.')
             return
         }
 
@@ -72,13 +75,13 @@ function Home() {
                 setHayCambios(false)
             }
         } catch (err) {
-            alert(err.message)
+            setMensaje(err.message)
         }
     }
 
     const ejecutar = () => {
         if (pedidos.length === 0) {
-            alert('Primero debe generar o agregar pedidos.')
+            setMensaje('Primero debe generar o agregar pedidos.')
             return
         }
 
@@ -87,6 +90,7 @@ function Home() {
 
     return (
         <div className="panel_principal">
+            <Aviso mensaje={mensaje} onCerrar={() => setMensaje('')} />
 
             <h1>Ruteo y Planificación de Cargas</h1>
 
