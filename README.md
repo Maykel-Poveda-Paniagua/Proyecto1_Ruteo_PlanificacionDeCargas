@@ -5,8 +5,8 @@ Profesor: Ing. Joss Pecou Johnson
 
 ## Integrantes
 
-- [Nombre 1]
-- [Nombre 2]
+- Rashely González Thompson
+- Yeinery Durán Bastos 
 - Maykel Poveda Paniagua
 
 ## Aplicación desplegada
