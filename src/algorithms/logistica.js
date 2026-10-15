@@ -1,4 +1,11 @@
-// Módulos independientes de React. No modifican los pedidos recibidos.
+/**
+ * Valida IDs únicos, peso y beneficio positivos, y ubicaciones dentro de la matriz de 9 × 12, no permite pedidos en (0,0)
+ *
+ * @param {Object[]} pedidos - Pedidos con id, peso, beneficio, fila y columna
+ * @returns {void}
+ * @throws {Error} si algun dato es invalido
+ */
+
 function validarPedidos(pedidos) {
   if (!Array.isArray(pedidos)) throw new Error('Los pedidos deben ser una lista.')
   const ids = new Set()
@@ -22,6 +29,13 @@ function validarPedidos(pedidos) {
   }
 }
 
+/**
+ * Genera pedidos aleatorios con peso de 5 a 24, beneficio de 10 a 59 y ubicación válida, excluyendo (0,0), puede repetir ubicaciones.
+ *
+ * @param {number} cantidad - Número entero positivo de pedidos
+ * @returns {Object[]} Pedidos con id, peso, beneficio, fila y columna
+ * @throws {Error} Si cantidad no es un entero seguro positivo
+ */
 
 export function generarPedidosAleatorios(cantidad) {
   if (!Number.isSafeInteger(cantidad) || cantidad < 1) {
@@ -43,7 +57,15 @@ export function generarPedidosAleatorios(cantidad) {
 }
 
 
-// Merge sort explícito: permite contar comparaciones y justificar O(N log N).
+/**
+ * Ordena por ratio descendente usando merge sort y cuenta comparaciones
+ * Conserva el orden original en empates
+ *
+ * @param {Object[]} lista - Candidatos con pedido y ratio
+ * @param {Object} metricas - Contadores que se actualizan durante el ordenamiento
+ * @returns {Object[]} Nueva lista ordenada
+ */
+
 function ordenarPorRatio(lista, metricas) {
   if (lista.length <= 1) return lista.slice()
   const mitad = Math.floor(lista.length / 2)
@@ -54,7 +76,6 @@ function ordenarPorRatio(lista, metricas) {
   let j = 0
   while (i < a.length && j < b.length) {
     metricas.comparacionesOrdenamiento++
-    // En empate se conserva el orden original (ordenamiento estable).
     if (a[i].ratio >= b[j].ratio) salida.push(a[i++])
     else salida.push(b[j++])
   }
@@ -62,6 +83,16 @@ function ordenarPorRatio(lista, metricas) {
   while (j < b.length) salida.push(b[j++])
   return salida
 }
+
+/**
+ * Selecciona pedidos completos por beneficio/peso sin exceder la capacidad
+ * No garantiza la máxima ganancia
+ *
+ * @param {Object[]} pedidos - Pedidos disponibles
+ * @param {number} capacidad - Capacidad máxima positiva y finita
+ * @returns {Object} Seleccionados, descartados, peso, ganancia, ocupación, pasos, cantidades, tiempo en ms y contadores de operaciones instrumentadas.
+ * @throws {Error} Si las entradas o los cálculos son invalidos.
+ */
 
 export function seleccionarPedidosVoraz(pedidos, capacidad) {
   validarPedidos(pedidos)
@@ -105,6 +136,17 @@ export function seleccionarPedidosVoraz(pedidos, capacidad) {
   }
 }
 
+/**
+ * Construye una ruta por vecino más cercano usando distancia Manhattan
+ * No garantiza la ruta mínima global
+ *
+ * @param {Object[]} pedidos - Pedidos que se deben visitar.
+ * @param {Object} [central={fila: 0, columna: 0}] - Ubicación inicial en la matriz
+ * @param {boolean} [regresar=true] - Indica si se vuelve a la central
+ * @returns {Object} IDs en orden de visita, tramos, distancia total, central, configuración de regreso, tiempo en ms y metricas
+ * @throws {Error} Si las entradas o distancias son invalidas
+ */
+
 export function rutaVecinoMasCercano(pedidos, central = { fila: 0, columna: 0 }, regresar = true) {
   validarPedidos(pedidos)
   
@@ -123,6 +165,15 @@ export function rutaVecinoMasCercano(pedidos, central = { fila: 0, columna: 0 },
   let distanciaTotal = 0
   const metricas = { calculosDistancia: 0, comparacionesDistancia: 0, revisionesVisitados: 0 }
   
+    /**
+   * Calcula la distancia Manhattan e incrementa su contador
+   *
+   * @param {Object} a - Origen con fila y columna
+   * @param {Object} b - Destino con fila y columna
+   * @returns {number} Distancia entre ambas ubicaciones
+   * @throws {Error} Si la distancia no es finita
+   */
+
   const distancia = (a, b) => { metricas.calculosDistancia++
     const d =Math.abs(a.fila - b.fila) + Math.abs(a.columna - b.columna)
     
@@ -167,7 +218,18 @@ export function rutaVecinoMasCercano(pedidos, central = { fila: 0, columna: 0 },
     operaciones: Object.values(metricas).reduce((a, b) => a + b, 0), metricas }
 }
 
-// Punto de entrada para quien implemente el hook y la integración en Home.
+/**
+ * Ejecuta la selección de carga y calcula la ruta de los seleccionados. Combina sus resultados para la interfaz
+ *
+ * @param {Object[]} pedidos - Pedidos disponibles
+ * @param {number} capacidad - Capacidad máxima del vehículo
+ * @param {Object} [opciones={}] - Configuración del recorrido
+ * @param {Object} [opciones.central={fila: 0, columna: 0}] - Ubicación inicial
+ * @param {boolean} [opciones.regresar=true] - Indica si se vuelve a la central
+ * @returns {Object} Resultados de carga y ruta, tiempo total y por etapa, operaciones totales y métricas separadas
+ * @throws {Error} Si la selección o el cálculo de la ruta fallan
+ */
+
 export function planificarCargaYRuta(pedidos, capacidad, opciones = {}) {
   const inicio = performance.now()
   const carga = seleccionarPedidosVoraz(pedidos, capacidad)
