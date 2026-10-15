@@ -1,5 +1,15 @@
+/**
+ * Componente principal de la aplicación.
+ *
+ * Renderiza la página de inicio del sistema de planificación de cargas.
+ *
+ * @component
+ * @returns {JSX.Element} Página principal de la aplicación.
+ */
+import Home from './pages/Home'
+
 function App() {
-  return <h1>Ruteo y Planificación de Cargas</h1>
+  return <Home/>
 }
 
 export default App

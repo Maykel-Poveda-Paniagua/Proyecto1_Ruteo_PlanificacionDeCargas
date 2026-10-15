@@ -1,0 +1,534 @@
+/*==========================================
+    VARIABLES
+========================================== */
+:root {
+    --blanco: #ffffff;
+    --negro: #202820;
+    --verde: #47803f;
+    --verde-oscuro: #35652f;
+    --verde-claro: #eaf2e8;
+    --fondo: #f5f7f4;
+    --fondo-barra: #eae3d5;
+    --borde: #d9dfd8;
+    --texto-secundario: #626b61;
+    --ruta: #d97706;
+}
+
+/*==========================================
+    ESTILOS GENERALES
+========================================== */
+* {
+    box-sizing: border-box;
+}
+  
+body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--negro);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*==========================================
+    TRUCKCAPACITY
+========================================== */
+.truck_capacity {
+    width: 100%;
+}
+
+.truck_capacity_label {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.truck_capacity .truck_barra {
+    width: 100%;
+    height: 20px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: var(--fondo-barra);
+}
+
+.truck_capacity .truck_relleno {
+    height: 100%;
+    background: var(--verde);
+    transition: width 0.4s;
+}
+
+.truck_alerta {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffe69c;
+}
+
+/*==========================================
+    CONFIGFORM
+========================================== */
+.config_form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.config_form .config_campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.config_form label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.config_form input {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    background: var(--blanco);
+    color: var(--negro);
+    font-family: inherit;
+}
+
+.config_form input:focus {
+    outline: 2px solid var(--verde-claro);
+    border-color: var(--verde);
+}
+
+.config_form .config_boton {
+    padding: 10px;
+    border: 1px solid var(--verde);
+    border-radius: 6px;
+    background: var(--verde);
+    color: var(--blanco);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.config_form .config_boton:hover {
+    background: var(--verde-oscuro);
+}
+
+/*==========================================
+    ORDERFORM
+========================================== */
+.order_form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.order_form .order_id,
+.order_form .order_peso,
+.order_form .order_beneficio,
+.order_form .order_x,
+.order_form .order_y {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.order_form label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.order_form input, 
+.order_form select {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    background: var(--blanco);
+    color: var(--negro);
+    font-family: inherit;
+}
+
+.order_form input:focus, 
+.order_form select:focus {
+    outline: 2px solid var(--verde-claro);
+    border-color: var(--verde);
+}
+
+.order_form .order_boton {
+    padding: 10px;
+    border: 1px solid var(--verde);
+    border-radius: 6px;
+    background: var(--verde);
+    color: var(--blanco);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.order_form .order_boton:hover {
+    background: var(--verde-oscuro);
+}
+
+.order_form .order_error {
+    margin: 0;
+    font-size: 13px;
+    color: #b3261e;
+}
+
+/*==========================================
+    ORDERLIST
+========================================== */
+.orders_tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.orders_tabla th,
+.orders_tabla td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--borde);
+    text-align: left;
+}
+
+.orders_tabla th {
+    background: var(--verde-claro);
+    font-weight: 600;
+}
+
+.orders_cargado {
+    color: var(--verde-oscuro);
+    font-weight: 600;
+}
+
+.orders_sin_actualizar {
+    color: var(--texto-secundario);
+    font-weight: 600;
+}
+
+.orders_descartado,
+.orders_vacio {
+    color: #b3261e;
+    font-weight: 600;
+}
+
+.mapa_controles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.mapa_controles button {
+    padding: 6px 12px;
+    border: 1px solid var(--verde);
+    border-radius: 6px;
+    background: var(--verde);
+    color: var(--blanco);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mapa_controles button:hover:not(:disabled) {
+    background: var(--verde-oscuro);
+}
+
+.mapa_controles button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.mapa_progreso {
+    font-size: 13px;
+    color: var(--texto-secundario);
+}
+
+/*==========================================
+    Boton de ejecutar algoritmo
+==========================================*/
+.ejecutar_algoritmo {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.boton_ejecutar {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton_ejecutar:hover {
+    background: #1d4ed8;
+}
+
+/*==========================================
+    ESTADISTICAS Y STATSPANEL
+==========================================*/
+.stats_contenedor {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.truck_capacity {
+    flex: 0 0 220px;
+    width: 220px;
+    max-width: 220px;
+}
+
+.stats_panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.stats_fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    background: var(--fondo);
+}
+
+.stats_etiqueta {
+    color: var(--texto-secundario);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stats_valor {
+    color: var(--verde-oscuro);
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/*==========================================
+    VIEWMAP
+========================================== */
+.view_map h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.mapa_svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+}
+
+.mapa_calle {
+    stroke: var(--borde);
+    stroke-width: 1.5;
+}
+
+.mapa_eje {
+    fill: var(--texto-secundario);
+    font-size: 10px;
+}
+
+.mapa_ruta {
+    fill: none;
+    stroke: var(--ruta);
+    stroke-width: 3;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.mapa_ruta_regreso {
+    stroke-dasharray: 6 5;
+    opacity: 0.7;
+}
+
+.mapa_central {
+    fill: var(--negro);
+}
+
+.mapa_texto_central,
+.mapa_texto_nodo {
+    fill: var(--blanco);
+    font-size: 10px;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+.mapa_nodo {
+    stroke: var(--blanco);
+    stroke-width: 2;
+}
+
+.mapa_nodo_seleccionado { fill: var(--verde); }
+.mapa_nodo_descartado   { fill: #c0392b; }
+.mapa_nodo_pendiente    { fill: var(--texto-secundario); }
+
+.mapa_leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--texto-secundario);
+}
+
+.mapa_badge {
+    fill: var(--negro);
+    stroke: var(--blanco);
+    stroke-width: 1.5;
+}
+
+.mapa_texto_badge {
+    fill: var(--blanco);
+    font-size: 9px;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+/*==========================================
+    HOME
+========================================== */
+.panel_principal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.panel_principal h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--negro);
+}
+
+.panel_principal h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+/* Dos columnas superiores */
+.panel_superior {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 20px;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* Columna izquierda */
+.panel_izquierdo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    padding: 10px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Columna derecha: mapa */
+.panel_derecho {
+    min-width: 0;
+    min-height: auto;
+    padding: 12px;
+    background: #edf1eb;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+}
+
+/* Secciones inferiores */
+.seccion_estadisticas,
+.seccion_tiempo_real {
+    width: 100%;
+    padding: 20px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/*==========================================
+    DISEÑO RESPONSIVE
+========================================== */
+@media (max-width: 768px) {
+    .panel_principal {
+        padding: 14px;
+    }
+
+    .panel_principal h1 {
+        font-size: 23px;
+    }
+
+    .panel_superior {
+        grid-template-columns: 1fr;
+    }
+
+    .panel_derecho {
+        min-height: 300px;
+    }
+}
+
+/*==========================================
+AVISO
+========================================== */
+.aviso_fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.aviso_ventana {
+    background: white;
+    padding: 24px 32px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.aviso_ventana button {
+    margin-top: 12px;
+    padding: 8px 20px;
+    background: var(--verde);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.aviso_ventana button:hover {
+    background: var(--verde-oscuro);
+}
