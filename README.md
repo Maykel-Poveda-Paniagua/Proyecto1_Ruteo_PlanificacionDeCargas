@@ -11,7 +11,7 @@
 
 ## Aplicación desplegada
 
-[Link GitHub Pages]
+https://maykel-poveda-paniagua.github.io/Proyecto1_Ruteo_PlanificacionDeCargas/
 
 ## Descripción
 
