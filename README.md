@@ -1,12 +1,12 @@
 # Ruteo y Planificación de Cargas
 
-Proyecto #1 · IC-3002 Análisis de Algoritmos · Escuela de Ingeniería en Computación, TEC
-Profesor: Ing. Joss Pecou Johnson
+- Proyecto #1 · IC-3002 Análisis de Algoritmos · Escuela de Ingeniería en Computación, TEC
+- Profesor: Ing. Joss Pecou Johnson
 
 ## Integrantes
 
-- [Nombre 1]
-- [Nombre 2]
+- Rashely González Thompson
+- Yeinery Durán Bastos 
 - Maykel Poveda Paniagua
 
 ## Aplicación desplegada
